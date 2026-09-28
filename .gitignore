@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Data projektu - stahuj z Kaggle, jsou moc velká pro GitHub
+data/
+
+# Hesla a přístupové údaje
+.env
+
+# Dočasné soubory Excelu a Office
+~$*
