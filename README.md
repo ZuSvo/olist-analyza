@@ -13,7 +13,7 @@ Excel (Power Query), PostgreSQL, Python (pandas), Tableau Public, Power BI, Jasp
 
 ## Data
 [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce), licence CC BY-NC-SA 4.0.
-Data nejsou součástí repozitáře. Stáhni je z Kaggle do složky `data/raw/`.
+Data nejsou součástí repozitáře.
 
 ## Průběh a zjištění
 *Doplňuji průběžně.*
