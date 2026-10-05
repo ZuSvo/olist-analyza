@@ -17,59 +17,29 @@ Data nejsou součástí repozitáře.
 
 ## Průběh a zjištění:
 
-## Datový slovník:
-#Tabulka orders: 
-- 99441 řádků
-- objednávky, jejich status, data a časy změny stavů
-- prádné buňky:
-    • Order_approved_at: prázdné <1%
-	• Order_delivered_carrier_date: prázdné 2%
-	• Order_delivered_customer_date: prázdné 3%
+## Poznámky ke kvalitě dat v tabulce ORDERS:
+• Stav objednávek: 96 478 z 99 441 objednávek je delivered. Zbylých 2 963 je v ostatních stavech. Pozor, v datech se píše canceled (s jedním „l“).
+• Chybí datum schválení (160 rows): 141 canceled (zrušeno před schválením), 5 created (čeká na schválení), 14 delivered → data quality issue.
+• Chybí datum předání přepravci (1 783 rows): 609 unavailable + 550 canceled + 314 invoiced + 301 processing + 5 created + 2 approved + 2 delivered. Jde tedy o objednávky, které se ještě neodeslaly nebo byly zrušeny. Jen 2 delivered bez data předání jsou data quality issue. Hypotéza o osobním odběru se nepotvrdila. 75 zrušených objednávek (625 − 550) bylo zrušeno až po předání přepravci.
+• Chybí datum doručení (2 965 rows): 2 963 nedoručených − 6 canceled, které datum doručení mají, + 8 delivered bez data doručení = 2 965 → dva data quality issues. Shipped (1 107) datum předání přepravci má, ale doručení ne, což odpovídá zásilkám na cestě.
+• Stav unavailable: Olist stavy oficiálně nedokumentuje. Nejpravděpodobnější výklad: zboží nebylo dostupné, objednávka byla schválena, ale neodeslána. Data to podporují: všech 609 objednávek unavailable nemá datum předání přepravci ani doručení. Je to koncový stav podobný canceled.
+• Důsledek pro analýzu: při výpočtu doby doručení budeme pracovat jen s objednávkami delivered, které mají vyplněné datum doručení.
 
-#Tabulka order_items:
-- 112650 řádků
-- druh a počet položek objednávky, prodejce, cena, cena dopravy, limitní den odeslání
-- 0 chybných a prázdných řádků
 
-#Tabulka customers:
-- 99441 řádků
-- ID zákazníka u zakázky, unikátní ID zákazníka, město, PSČ a stát
-- 0 chybných a prázdných řádků
+## Datový slovník
 
-#Tabulka payments:
-- 103886 řádků
-- ID objednávky, detaily platby a způsob platby
-- 0 chybných a prádných řádků
+| Tabulka | Rows | Obsah | Kvalita dat |
+| --- | --- | --- | --- |
+| orders | 99 441 | objednávky, status, časová osa | chybí schválení <1 %, předání přepravci 2 %, doručení 3 % (vysvětleno stavy objednávek) |
+| order_items | 112 650 | položky objednávek (1 row = 1 kus), produkt, prodejce, cena, doprava | bez chyb |
+| customers | 99 441 | zákazník u objednávky, unikátní ID zákazníka, PSČ, město, stát | bez chyb |
+| payments | 103 886 | platby (typ, splátky, částka); objednávka může mít víc plateb | bez chyb |
+| reviews | 99 224 | hodnocení 1–5 a komentáře | komentáře dobrovolné: chybí titulek 88 %, text 59 % |
+| products | 32 951 | kategorie, rozměry, váha, popis | chybí kategorie 2 %, rozměry/váha <1 % |
+| sellers | 3 095 | prodejci, PSČ, město, stát | bez chyb |
+| category_translation | 71 | portugalský → anglický název kategorie | bez chyb |
 
-#Tabulka reviews:
-- 99224 řádků
-- skóre a recenze k jednoltivým objednávkám a datum jeji přijetí
-- prázdné řádky:
-    • Review_comment_title: prázdné 88%
-	• Review_comment_message: prázdné 59%
 
-#Tabulka Products:
-- 32951 řádků
-- detaily produktu jako rozměry, váha, hmotnost, zařazení do kategorie
-- chybějící data:
-    • Product_category_name: prázdné 2%
-	• Products_name_length: prázdné 2%
-	• Products_desctription_length: prázdné 2%
-	• Products_photos_qty: prázdné 2%
-	• Product_weight_g: prázdné <1%
-	• Products_length_cm: prázdné <1%
-	• Product_height_cm: prázdné <1%
-	• Product_width_cm: prázdné <1%
-
-#Tabulka sellers:
-- 3095 řádků
-- seznam prodejců, PSČ, město, stát
-- 0 chybných nebo prázdných řádků
-
-#Tabulka category_translation:
-- 72 řádků
-- seznam a popis kategorií
-- 0 chybných a prázdných řádků
 
 
 
