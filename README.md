@@ -39,9 +39,28 @@ Data nejsou součástí repozitáře.
 | sellers | 3 095 | prodejci, PSČ, město, stát | bez chyb |
 | category_translation | 71 | portugalský → anglický název kategorie | bez chyb |
 
+## Datový model
+![Entity relationship diagram for the Olist e-commerce data model. The main subject is a database schema with tables customers, orders, payments, reviews, order_items, products, sellers, and category_translation arranged around the central orders table. Customers connect to orders in a one-to-many relationship, while orders connect to payments, reviews, and order_items. Order_items connect to products and sellers, and products connect to category_translation. The diagram uses green bordered table boxes, gray connector lines, cardinality markers, and a light gray background. Visible text includes customer_id, order_id, order_status, product_id, seller_id, payment_type, review_id, and category_translation, along with the table names shown in the schema.](datovy_model.png)
 
-
-
+## Zjištění z Power query:
+Transformace v Power Query:
+products: anglické kategorie přes Merge (Left Outer), chybějící překlad → portugalský název, chybějící kategorie → "unknown"
+orders: datum_objednavky, dny_doruceni, zpozdeni_dny, je_zpozdeno
+order_items: trzba_polozky = price + freight_value
+KPI| Hodnota
+Celkové tržby (price + freight): 15 843 553 BRL
+Počet objednávek celkem: 99 441
+Objednávek s položkami: 98 666
+Počet položek: 112 650
+AOV (tržby / objednávky s položkami): cca 160,6 BRL
+Průměrná hodnota položky (tržby / položky): cca 140,6 BRL
+Doručené včas / zpožděné / bez data doručení: 89 941 / 6 535 / 2 965
+Podíl zpožděných (z objednávek s datem doručení): 6,8 %
+Průměrná doba doručení: 12 dní
+Průměrné hodnocení: včas / zpožděné: 4,29 / 2,27 (rozdíl 2 hvězdičky, cca o 47 % nižší)
+Top 3 kategorie podle tržeb: health_beauty (1 441 248 BRL), watches_gifts (1 305 542 BRL), bed_bath_table (1 241 682 BRL).
+Poznámka k podílu zpožděných: porovnáváme data bez času, takže doručení v den slibovaného termínu se počítá jako včas. Často citovaných zhruba 8 % vznikne, když se porovnává i čas a zpoždění o pár hodin se počítá jako zpoždění.
+Count vs. Distinct Count: v orders je order_id primární klíč, každá hodnota je jen jednou, takže Count = Distinct Count = 99 441. V order_items je order_id cizí klíč a opakuje se u každé položky: Count = 112 650 (rows), Distinct Count = 98 666 (objednávek).
 
 
 
