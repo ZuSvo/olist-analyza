@@ -62,5 +62,18 @@ Top 3 kategorie podle tržeb: health_beauty (1 441 248 BRL), watches_gifts (1 30
 Poznámka k podílu zpožděných: porovnáváme data bez času, takže doručení v den slibovaného termínu se počítá jako včas. Často citovaných zhruba 8 % vznikne, když se porovnává i čas a zpoždění o pár hodin se počítá jako zpoždění.
 Count vs. Distinct Count: v orders je order_id primární klíč, každá hodnota je jen jednou, takže Count = Distinct Count = 99 441. V order_items je order_id cizí klíč a opakuje se u každé položky: Count = 112 650 (rows), Distinct Count = 98 666 (objednávek).
 
+### Dashboard
+
+![Excel dashboard](images/excel_dashboard.png)
+
+**DAX measures:** Trzby, Pocet objednavek, AOV, Prumerne hodnoceni,
+Zpozdene objednavky, Podil zpozdenych.
+
+**Hlavní zjištění fáze Excel:**
+1. Tržby 5 921 687 BRL... (trend 2017–2018)
+2. Nejvíc tržeb přináší kategorie bed_bath_table, health_beauty, watches_gifts.
+3. Stát SP tvoří 43 % tržeb.
+4. Zpoždění má 6,8 % doručených objednávek a jejich hodnocení je o 2 hvězdičky nižší (2,27 vs. 4,29).
+5. Omezení modelu: slicer kategorie nefiltruje measures z tabulky orders (směr filtru 1 → N).
 
 
